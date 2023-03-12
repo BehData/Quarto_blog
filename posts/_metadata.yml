@@ -1,0 +1,14 @@
+# options specified here will apply to all posts in this folder
+
+freeze: true
+
+title-block-banner: false 
+
+toc: true # Adds table of content to blog post's side bar
+toc-depth: 2 # What subheadings will be displayed in toc
+author: 'INICIATIVA CIENCIA DE DATOS' 
+
+
+    
+    
+    
