@@ -70,9 +70,9 @@ ul.task-list li input[type="checkbox"] {
     }
 
     const options = {
-      valueNames: ['listing-date','listing-title','listing-author','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
       
-      searchColumns: ["listing-date","listing-title","listing-author","listing-description","listing-categories"],
+      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description","listing-categories"],
     };
 
     window['quarto-listings'] = window['quarto-listings'] || {};
@@ -131,7 +131,7 @@ ul.task-list li input[type="checkbox"] {
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(2)</span></div><div class="category" data-category="123">123 <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Regresión Lineal Múltiple">Regresión Lineal Múltiple <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Regresión Lineal Simple">Regresión Lineal Simple <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Second Tag">Second Tag <span class="quarto-category-count">(1)</span></div></div></div>
+    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(4)</span></div><div class="category" data-category="123">123 <span class="quarto-category-count">(1)</span></div><div class="category" data-category="COVID-19">COVID-19 <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Car Crash">Car Crash <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Math Anxiety">Math Anxiety <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Multiple linear regression">Multiple linear regression <span class="quarto-category-count">(3)</span></div><div class="category" data-category="Second Tag">Second Tag <span class="quarto-category-count">(1)</span></div></div></div>
 <!-- main -->
 <main class="content column-page-left" id="quarto-document-content">
 
@@ -158,42 +158,128 @@ ul.task-list li input[type="checkbox"] {
 
 <div class="quarto-listing quarto-listing-container-default" id="listing-listing">
 <div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="Regresión Lineal Simple,Regresión Lineal Múltiple" data-listing-date-sort="1678597200000" data-listing-file-modified-sort="1678601591537" data-listing-reading-time-sort="3.005">
+<div class="quarto-post image-right" data-index="0" data-categories="Multiple linear regression,Car Crash" data-listing-date-sort="1678597200000" data-listing-file-modified-sort="1678606236668" data-listing-reading-time-sort="3.47">
+<div class="thumbnail">
+<p><a href="./posts/post-with-code/daniel_regression.html"> <img src="./posts/post-with-code/image/image_daniel.jpg" class="thumnail-image"> </a></p>
+</div>
 <div class="body">
-<a href="./posts/new/regresion.html">
+<a href="./posts/post-with-code/daniel_regression.html">
 <h3 class="no-anchor listing-title">
-Regresión Lineal
+Car crash and number of deathly victims: a peruvian case
 </h3>
 <div class="listing-subtitle">
 
 </div>
 </a>
 <div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Regresión Lineal Simple'); return false;">
-Regresión Lineal Simple
+<div class="listing-category" onclick="window.quartoListingCategory('Multiple linear regression'); return false;">
+Multiple linear regression
 </div>
-<div class="listing-category" onclick="window.quartoListingCategory('Regresión Lineal Múltiple'); return false;">
-Regresión Lineal Múltiple
+<div class="listing-category" onclick="window.quartoListingCategory('Car Crash'); return false;">
+Car Crash
 </div>
 </div>
-<a href="./posts/new/regresion.html">
+<a href="./posts/post-with-code/daniel_regression.html">
 <div class="listing-description">
-<p>Compilado de proyectos que emplean regresión lineal</p>
+<p>Number of vehicles involved in a car crash influence in the number of deathly victims?</p>
 </div>
 </a>
 </div>
 <div class="metadata">
-<a href="./posts/new/regresion.html">
+<a href="./posts/post-with-code/daniel_regression.html">
 <div class="listing-date">
 Mar 12, 2023
 </div>
 <div class="listing-author">
-INICIATIVA CIENCIA DE DATOS
+Daniel Calenzani
 </div>
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="1" data-categories="123,Second Tag" data-listing-date-sort="1654059600000" data-listing-file-modified-sort="1678601711478" data-listing-reading-time-sort="3.005">
+<div class="quarto-post image-right" data-index="1" data-categories="Multiple linear regression,COVID-19" data-listing-date-sort="1678597200000" data-listing-file-modified-sort="1678604706945" data-listing-reading-time-sort="1.855">
+<div class="thumbnail">
+<p><a href="./posts/post-with-code/elias_regression.html"> <img src="./posts/post-with-code/image/image_elias.jpg" class="thumnail-image"> </a></p>
+</div>
+<div class="body">
+<a href="./posts/post-with-code/elias_regression.html">
+<h3 class="no-anchor listing-title">
+Determinants of COVID-19 vaccination intention
+</h3>
+<div class="listing-subtitle">
+
+</div>
+</a>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('Multiple linear regression'); return false;">
+Multiple linear regression
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('COVID-19'); return false;">
+COVID-19
+</div>
+</div>
+<a href="./posts/post-with-code/elias_regression.html">
+<div class="listing-description">
+<p>Search the determinants of COVID-19 vaccination intention using multiple regression analysis</p>
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./posts/post-with-code/elias_regression.html">
+<div class="listing-date">
+Mar 12, 2023
+</div>
+<div class="listing-author">
+Elías Aburto
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="2" data-categories="Multiple linear regression,Math Anxiety" data-listing-date-sort="1678597200000" data-listing-file-modified-sort="1678606204005" data-listing-reading-time-sort="1.05">
+<div class="thumbnail">
+<p><a href="./posts/post-with-code/jorge_regression.html"> <img src="./posts/post-with-code/image/image_jorge.jpg" class="thumnail-image"> </a></p>
+</div>
+<div class="body">
+<a href="./posts/post-with-code/jorge_regression.html">
+<h3 class="no-anchor listing-title">
+Working Memory, Mathematical Anxiety
+</h3>
+<div class="listing-subtitle">
+
+</div>
+</a>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('Multiple linear regression'); return false;">
+Multiple linear regression
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('Math Anxiety'); return false;">
+Math Anxiety
+</div>
+</div>
+<a href="./posts/post-with-code/jorge_regression.html">
+<div class="listing-description">
+<p>Search the determinants of math performance</p>
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./posts/post-with-code/jorge_regression.html">
+<div class="listing-date">
+Mar 12, 2023
+</div>
+<div class="listing-author">
+Jorge Huanca
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="3" data-categories="123,Second Tag" data-listing-date-sort="1654059600000" data-listing-file-modified-sort="1678601711478" data-listing-reading-time-sort="3.005">
+<div class="thumbnail">
+<a href="./posts/new/new_post.html">
+<div class="thumbnail-image">
+
+</div>
+</a><p><a href="./posts/new/new_post.html"></a></p>
+</div>
 <div class="body">
 <a href="./posts/new/new_post.html">
 <h3 class="no-anchor listing-title">
@@ -223,7 +309,7 @@ Second Tag
 Jun 1, 2022
 </div>
 <div class="listing-author">
-INICIATIVA CIENCIA DE DATOS
+Default
 </div>
 </a>
 </div>

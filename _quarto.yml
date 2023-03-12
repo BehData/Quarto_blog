@@ -12,6 +12,6 @@ website:
         
 format:
   html:
-    theme: default
+    theme: theme.scss
 
 editor: source
