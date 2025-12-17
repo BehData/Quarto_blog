@@ -15,16 +15,10 @@ editor:
 ::: {#about-me-text .g-col-12 .g-col-md-6}
 # Bienvenidos a esta iniciativa!
 
-Este grupo está conformado por profesionales de psicología y
-antropología, interesados en aprender métodos computacionales para
+Este grupo está conformado por profesionales de psicología, 
+antropología e ingeniería interesados en aprender métodos computacionales para
 incorporarlos a nuestros proyectos de investigación.
 
-To get started, you can check out my most popular content below. You can
-find me on [Twitter](https://twitter.com/rappa753) or
-[GitHub](https://github.com/AlbertRapp) and
-[YouTube](https://www.youtube.com/user/Alfrodo123). Feel free to reach
-out to me via [mail](mailto:blog@albert-rapp.de) and subscribe to my
-email newsletter.
 :::
 
 ::: {.g-col-12 .g-col-md-5 .g-start-md-2}
