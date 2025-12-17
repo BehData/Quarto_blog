@@ -1,0 +1,199 @@
+---
+title: 'Student Performance (Multiple Linear Regression)'
+author: "Jackeline García"
+date: '2023-08-09'
+categories: ['Multiple linear regression']
+image: "image/image_jackeline.jpg"
+description: 'Search the determinants of student perform using multiple regression analysis'
+---
+
+## Dataset information
+
+*Description:*
+
+This research was from the Kaggle. The Student Performance Dataset is a dataset designed to examine the factors influencing academic student performance. The dataset consists of 10,000 student records, with each record containing information about various predictors and a performance index.
+
+*Variables:*
+
+-   Hours Studied: The total number of hours spent studying by each student.
+-   Previous Scores: The scores obtained by students in previous tests.
+-   Extracurricular Activities: Whether the student participates in extracurricular activities (Yes or No).
+-   Sleep Hours: The average number of hours of sleep the student had per day.
+-   Sample Question Papers Practiced: The number of sample question papers the student practiced.
+-   Performance Index: It represents the student's academic performance and has been rounded to the nearest whole number. The index ranges from 10 to 100, where higher values indicate better performance.
+
+## Multiple Regression Analysis: Step by step
+
+*Objective:* To identify the determinants of Student Performance.
+
+*Hypothesis:*
+
+-   H1: **Hours Studied** have a direct impact on **Performance Index**
+-   H2: **Previous Scores** have a direct impact on **Performance Index**
+-   H3: **Sample Question Papers Practiced** have a direct impact on **Performance Index**
+-   H4: **Sleep Hours** have a direct impact on **Performance Index**
+
+*Steps to prove the hypothesis*
+
+A. Model Evaluation
+
+1.  Regression coeficients and r-square
+2.  Interpretation
+
+B. Regression Model Assumtions
+
+1.  Lineality between dependent variables and independent variables.
+2.  Independence of observations: The observation from our model are independent.
+3.  Homoscedasticity: The errors from our model have equal variance.
+4.  Normality of Errors: The errors from our model are normally distributed.
+5.  Multicollinality: evaluate if the IVs are redundant.
+
+### Load the packages
+
+```{r, message=FALSE, warning=FALSE}
+library("foreign")
+library(ggplot2)
+library(ggpubr)
+library(dplyr)
+library(broom)
+library(ggpubr)
+library(tidyverse)
+library(readr)
+library(car)
+```
+
+## A. Model Evaluation
+
+### A1. Regression coeficients and r-square
+
+```{r, message=FALSE, warning=FALSE}
+Mydata <- read_csv("data/Student_Performance.csv")
+summary(Mydata$Performance_Index)
+```
+
+### **Hours Studied ~ Performance_Index**
+
+```{r}
+HoursStudied_lm <- lm(Performance_Index ~ Hours_Studied, data = Mydata) 
+summary(HoursStudied_lm)
+```
+
+###### Estimates:
+
+For each additional hour of study, the student's performance index increased by **2.77** on average. This result was statistically significant.
+
+###### Coefficient of determination:
+
+The model explains approximately 13.97% of the variability in the Performance_Index based on the hours of study.
+
+### **Previous Score ~ Performance_Index**
+
+```{r}
+PreviousScore_lm <- lm(Performance_Index ~ Previous_Scores, data = Mydata) 
+summary(PreviousScore_lm)
+```
+
+###### Estimates:
+
+For each additional point earned on past exams, the student's performance index increased by **one point** on average. This result was statistically significant.
+
+###### Coefficient of determination:
+
+The model explains approximately 83.76% of the variability in the Performance_Index from the previous score.
+
+### **Sample Question Papers Practiced ~ Performance_Index**
+
+```{r}
+Sample_Question_Papers_lm <- lm(Performance_Index ~ Sample_Question_Papers_Practiced, data = Mydata) 
+summary(Sample_Question_Papers_lm)
+```
+
+###### Estimates:
+
+For each additional sample exam taken, the student's performance index increased by **0.28** on average. This result was statistically significant.
+
+###### Coefficient of determination:
+
+The model explains only 0.18% of the variability in the Performance_Index based on the number of practice exams taken.
+
+### **Sleep Hours ~ Performance_Index**
+
+```{r}
+SleepHours_lm <- lm(Performance_Index ~ Sleep_Hours, data = Mydata) 
+summary(SleepHours_lm)
+```
+
+###### Estimates:
+
+For each additional hour of sleep, the student's performance index increased by **0.54** on average. This result was statistically significant.
+
+###### Coefficient of determination:
+
+The model explains only 0.23% of the variability in the Performance_Index from the hours of sleep.
+
+## B. Multiple regression
+
+```{r}
+Performance_lm <- lm(Performance_Index ~ Hours_Studied + Previous_Scores + Sample_Question_Papers_Practiced + Sleep_Hours, data = Mydata) 
+summary(Performance_lm)
+```
+
+### B1. Interpretation
+
+###### Estimates:
+
+For each additional hour of study, the student's performance index increased by 2.85 on average. This result was statistically significant.
+
+For each additional point earned on past exams, the student's performance index increased by one point on average. This result was statistically significant.
+
+For each additional sample exam taken, the student's performance index increased by 0.19 on average. This result was statistically significant.
+
+For each additional hour of sleep, the student's performance index increased by 0.47 on average. This result was statistically significant.
+
+###### Coefficient of determination:
+
+The model explains approximately 98.85% of the variability in the Performance_Index using the variables hours studied, previous scores, sample question papers practiced, and sleep hours. This means that, together, these four variables offer an extremely accurate prediction of academic performance, much stronger than when analyzed separately.
+
+## c. Regression Model Assumtions
+
+### c1. Lineality between dependent variables and independent variables
+
+```{r}
+ggscatter(x="Hours_Studied", y="Performance_Index", data = Mydata, add="reg.line", add.params = list(color="red", fill="gray70"))
+ggscatter(x="Previous_Scores", y="Performance_Index", data = Mydata, add="reg.line", add.params = list(color="red", fill="gray70"))
+ggscatter(x="Sample_Question_Papers_Practiced", y="Performance_Index", data = Mydata, add="reg.line", add.params = list(color="red", fill="gray70"))
+ggscatter(x="Sleep_Hours", y="Performance_Index", data = Mydata, add="reg.line", add.params = list(color="red", fill="gray70"))
+```
+
+### c2. Independence of observations
+
+The observation from our model are independent.
+
+This was fulfilled when each observation was made by one participant.
+
+### B3. Homocedasticity
+
+The errors from our model have equal variance.
+
+```{r}
+par(mfrow=c(2,2))
+plot(Performance_lm)
+par(mfrow=c(1,1))
+```
+
+### c4. Normality of Errors
+
+The errors from our model are normally distributed.
+
+```{r}
+par(mfrow=c(2,2))
+plot(Performance_lm)
+par(mfrow=c(1,1))
+```
+
+### c5. Multicollinality: evaluate if the IVs are redundant.
+
+We will only analyze this when we perform adjusted regressions. 
+```{r}
+vif(Performance_lm)
+```

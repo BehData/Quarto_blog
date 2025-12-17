@@ -1,59 +1,61 @@
 ---
 page-layout: full
+editor: 
+  markdown: 
+    wrap: 72
 ---
 
 <!-- Nothing else to see here -->
 
-
-::: {.grid}
-
+::::::::: grid
 ::: {.g-col-12 .g-col-md-6}
 ![](my_profile.jpg)
 :::
 
-::: {.g-col-12 .g-col-md-6 #about-me-text}
+::: {#about-me-text .g-col-12 .g-col-md-6}
 # Bienvenidos a esta iniciativa!
-Este grupo está conformado por profesionales de psicología
-y antropología, interesados en aprender métodos computacionales
-para incorporarlos a nuestros proyectos de investigación.
 
-To get started, you can check out my most popular content below. You can find me on [Twitter](https://twitter.com/rappa753) or
-[GitHub](https://github.com/AlbertRapp) and 
-[YouTube](https://www.youtube.com/user/Alfrodo123). 
-Feel free to reach out to me via [mail](mailto:blog@albert-rapp.de) and subscribe to my email newsletter.
+Este grupo está conformado por profesionales de psicología y
+antropología, interesados en aprender métodos computacionales para
+incorporarlos a nuestros proyectos de investigación.
+
+To get started, you can check out my most popular content below. You can
+find me on [Twitter](https://twitter.com/rappa753) or
+[GitHub](https://github.com/AlbertRapp) and
+[YouTube](https://www.youtube.com/user/Alfrodo123). Feel free to reach
+out to me via [mail](mailto:blog@albert-rapp.de) and subscribe to my
+email newsletter.
 :::
 
 ::: {.g-col-12 .g-col-md-5 .g-start-md-2}
 # Data Visualization
 
-- This will be filled...
-- ...when everything i  sdfs ready.f adf asd sdf sdf 
-- Bla bla bla bla sdf s sd fs  sdf sdfasdfsf 
-
+-   This will be filled...
+-   ...when everything i sdfs ready.f adf asd sdf sdf
+-   Bla bla bla bla sdf s sd fs sdf sdfasdfsf
 :::
 
 ::: {.g-col-12 .g-col-md-5}
 # Stats/ML
 
-- This will be filled...
-- ...when everything is ready.
-- Bla bla bla bla
+-   This will be filled...
+-   ...when everything is ready.
+-   Bla bla bla bla
 :::
 
 ::: {.g-col-12 .g-col-md-5 .g-start-md-2}
 # Dashboards
 
-- This will be filled...
-- ...when everything is ready.
-- Bla bla bla bla
+-   This will be filled...
+-   ...when everything is ready.
+-   Bla bla bla bla
 :::
 
 ::: {.g-col-12 .g-col-md-5}
 # YouTube
 
-- This will be filled...
-- ...when everything is ready.
-- Bla bla bla bla
+-   This will be filled...
+-   ...when everything is ready.
+-   Bla bla bla bla
 :::
-
-:::
+:::::::::

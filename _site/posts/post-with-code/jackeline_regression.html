@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.32">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Jackeline García">
+<meta name="dcterms.date" content="2023-08-09">
+<meta name="description" content="Search the determinants of student perform using multiple regression analysis">
+
+<title>Student Performance (Multiple Linear Regression) – INICIATIVA CIENCIA DE DATOS</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-c5a0cd84a5fbeac8241d93caccbf7ef8.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">INICIATIVA CIENCIA DE DATOS</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../blog.html"> 
+<span class="menu-text">Proyectos</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/Data-Science-Project-R-Python"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#dataset-information" id="toc-dataset-information" class="nav-link active" data-scroll-target="#dataset-information">Dataset information</a></li>
+  <li><a href="#multiple-regression-analysis-step-by-step" id="toc-multiple-regression-analysis-step-by-step" class="nav-link" data-scroll-target="#multiple-regression-analysis-step-by-step">Multiple Regression Analysis: Step by step</a>
+  <ul>
+  <li><a href="#load-the-packages" id="toc-load-the-packages" class="nav-link" data-scroll-target="#load-the-packages">Load the packages</a></li>
+  </ul></li>
+  <li><a href="#a.-model-evaluation" id="toc-a.-model-evaluation" class="nav-link" data-scroll-target="#a.-model-evaluation">A. Model Evaluation</a>
+  <ul>
+  <li><a href="#a1.-regression-coeficients-and-r-square" id="toc-a1.-regression-coeficients-and-r-square" class="nav-link" data-scroll-target="#a1.-regression-coeficients-and-r-square">A1. Regression coeficients and r-square</a></li>
+  <li><a href="#hours-studied-performance_index" id="toc-hours-studied-performance_index" class="nav-link" data-scroll-target="#hours-studied-performance_index"><strong>Hours Studied ~ Performance_Index</strong></a></li>
+  <li><a href="#previous-score-performance_index" id="toc-previous-score-performance_index" class="nav-link" data-scroll-target="#previous-score-performance_index"><strong>Previous Score ~ Performance_Index</strong></a></li>
+  <li><a href="#sample-question-papers-practiced-performance_index" id="toc-sample-question-papers-practiced-performance_index" class="nav-link" data-scroll-target="#sample-question-papers-practiced-performance_index"><strong>Sample Question Papers Practiced ~ Performance_Index</strong></a></li>
+  <li><a href="#sleep-hours-performance_index" id="toc-sleep-hours-performance_index" class="nav-link" data-scroll-target="#sleep-hours-performance_index"><strong>Sleep Hours ~ Performance_Index</strong></a></li>
+  </ul></li>
+  <li><a href="#b.-multiple-regression" id="toc-b.-multiple-regression" class="nav-link" data-scroll-target="#b.-multiple-regression">B. Multiple regression</a>
+  <ul>
+  <li><a href="#b1.-interpretation" id="toc-b1.-interpretation" class="nav-link" data-scroll-target="#b1.-interpretation">B1. Interpretation</a></li>
+  </ul></li>
+  <li><a href="#c.-regression-model-assumtions" id="toc-c.-regression-model-assumtions" class="nav-link" data-scroll-target="#c.-regression-model-assumtions">c.&nbsp;Regression Model Assumtions</a>
+  <ul>
+  <li><a href="#c1.-lineality-between-dependent-variables-and-independent-variables" id="toc-c1.-lineality-between-dependent-variables-and-independent-variables" class="nav-link" data-scroll-target="#c1.-lineality-between-dependent-variables-and-independent-variables">c1. Lineality between dependent variables and independent variables</a></li>
+  <li><a href="#c2.-independence-of-observations" id="toc-c2.-independence-of-observations" class="nav-link" data-scroll-target="#c2.-independence-of-observations">c2. Independence of observations</a></li>
+  <li><a href="#b3.-homocedasticity" id="toc-b3.-homocedasticity" class="nav-link" data-scroll-target="#b3.-homocedasticity">B3. Homocedasticity</a></li>
+  <li><a href="#c4.-normality-of-errors" id="toc-c4.-normality-of-errors" class="nav-link" data-scroll-target="#c4.-normality-of-errors">c4. Normality of Errors</a></li>
+  <li><a href="#c5.-multicollinality-evaluate-if-the-ivs-are-redundant." id="toc-c5.-multicollinality-evaluate-if-the-ivs-are-redundant." class="nav-link" data-scroll-target="#c5.-multicollinality-evaluate-if-the-ivs-are-redundant.">c5. Multicollinality: evaluate if the IVs are redundant.</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Student Performance (Multiple Linear Regression)</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">Multiple linear regression</div>
+  </div>
+  </div>
+
+<div>
+  <div class="description">
+    Search the determinants of student perform using multiple regression analysis
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Jackeline García </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">August 9, 2023</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="dataset-information" class="level2">
+<h2 class="anchored" data-anchor-id="dataset-information">Dataset information</h2>
+<p><em>Description:</em></p>
+<p>This research was from the Kaggle. The Student Performance Dataset is a dataset designed to examine the factors influencing academic student performance. The dataset consists of 10,000 student records, with each record containing information about various predictors and a performance index.</p>
+<p><em>Variables:</em></p>
+<ul>
+<li>Hours Studied: The total number of hours spent studying by each student.</li>
+<li>Previous Scores: The scores obtained by students in previous tests.</li>
+<li>Extracurricular Activities: Whether the student participates in extracurricular activities (Yes or No).</li>
+<li>Sleep Hours: The average number of hours of sleep the student had per day.</li>
+<li>Sample Question Papers Practiced: The number of sample question papers the student practiced.</li>
+<li>Performance Index: It represents the student’s academic performance and has been rounded to the nearest whole number. The index ranges from 10 to 100, where higher values indicate better performance.</li>
+</ul>
+</section>
+<section id="multiple-regression-analysis-step-by-step" class="level2">
+<h2 class="anchored" data-anchor-id="multiple-regression-analysis-step-by-step">Multiple Regression Analysis: Step by step</h2>
+<p><em>Objective:</em> To identify the determinants of Student Performance.</p>
+<p><em>Hypothesis:</em></p>
+<ul>
+<li>H1: <strong>Hours Studied</strong> have a direct impact on <strong>Performance Index</strong></li>
+<li>H2: <strong>Previous Scores</strong> have a direct impact on <strong>Performance Index</strong></li>
+<li>H3: <strong>Sample Question Papers Practiced</strong> have a direct impact on <strong>Performance Index</strong></li>
+<li>H4: <strong>Sleep Hours</strong> have a direct impact on <strong>Performance Index</strong></li>
+</ul>
+<p><em>Steps to prove the hypothesis</em></p>
+<p>A. Model Evaluation</p>
+<ol type="1">
+<li>Regression coeficients and r-square</li>
+<li>Interpretation</li>
+</ol>
+<p>B. Regression Model Assumtions</p>
+<ol type="1">
+<li>Lineality between dependent variables and independent variables.</li>
+<li>Independence of observations: The observation from our model are independent.</li>
+<li>Homoscedasticity: The errors from our model have equal variance.</li>
+<li>Normality of Errors: The errors from our model are normally distributed.</li>
+<li>Multicollinality: evaluate if the IVs are redundant.</li>
+</ol>
+<section id="load-the-packages" class="level3">
+<h3 class="anchored" data-anchor-id="load-the-packages">Load the packages</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"foreign"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggpubr)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggpubr)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="a.-model-evaluation" class="level2">
+<h2 class="anchored" data-anchor-id="a.-model-evaluation">A. Model Evaluation</h2>
+<section id="a1.-regression-coeficients-and-r-square" class="level3">
+<h3 class="anchored" data-anchor-id="a1.-regression-coeficients-and-r-square">A1. Regression coeficients and r-square</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>Mydata <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/Student_Performance.csv"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Mydata<span class="sc">$</span>Performance_Index)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  10.00   40.00   55.00   55.22   71.00  100.00 </code></pre>
+</div>
+</div>
+</section>
+<section id="hours-studied-performance_index" class="level3">
+<h3 class="anchored" data-anchor-id="hours-studied-performance_index"><strong>Hours Studied ~ Performance_Index</strong></h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>HoursStudied_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(Performance_Index <span class="sc">~</span> Hours_Studied, <span class="at">data =</span> Mydata) </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(HoursStudied_lm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = Performance_Index ~ Hours_Studied, data = Mydata)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-37.564 -15.244  -0.152  15.529  35.756 
+
+Coefficients:
+              Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)   41.37917    0.38712  106.89   &lt;2e-16 ***
+Hours_Studied  2.77306    0.06883   40.29   &lt;2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 17.82 on 9998 degrees of freedom
+Multiple R-squared:  0.1397,    Adjusted R-squared:  0.1396 
+F-statistic:  1623 on 1 and 9998 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<section id="estimates" class="level6">
+<h6 class="anchored" data-anchor-id="estimates">Estimates:</h6>
+<p>For each additional hour of study, the student’s performance index increased by <strong>2.77</strong> on average. This result was statistically significant.</p>
+</section>
+<section id="coefficient-of-determination" class="level6">
+<h6 class="anchored" data-anchor-id="coefficient-of-determination">Coefficient of determination:</h6>
+<p>The model explains approximately 13.97% of the variability in the Performance_Index based on the hours of study.</p>
+</section>
+</section>
+<section id="previous-score-performance_index" class="level3">
+<h3 class="anchored" data-anchor-id="previous-score-performance_index"><strong>Previous Score ~ Performance_Index</strong></h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>PreviousScore_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(Performance_Index <span class="sc">~</span> Previous_Scores, <span class="at">data =</span> Mydata) </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(PreviousScore_lm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = Performance_Index ~ Previous_Scores, data = Mydata)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-17.7729  -6.5239  -0.0082   6.3689  19.4346 
+
+Coefficients:
+                  Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)     -15.181799   0.319605   -47.5   &lt;2e-16 ***
+Previous_Scores   1.013837   0.004465   227.1   &lt;2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 7.744 on 9998 degrees of freedom
+Multiple R-squared:  0.8376,    Adjusted R-squared:  0.8376 
+F-statistic: 5.156e+04 on 1 and 9998 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<section id="estimates-1" class="level6">
+<h6 class="anchored" data-anchor-id="estimates-1">Estimates:</h6>
+<p>For each additional point earned on past exams, the student’s performance index increased by <strong>one point</strong> on average. This result was statistically significant.</p>
+</section>
+<section id="coefficient-of-determination-1" class="level6">
+<h6 class="anchored" data-anchor-id="coefficient-of-determination-1">Coefficient of determination:</h6>
+<p>The model explains approximately 83.76% of the variability in the Performance_Index from the previous score.</p>
+</section>
+</section>
+<section id="sample-question-papers-practiced-performance_index" class="level3">
+<h3 class="anchored" data-anchor-id="sample-question-papers-practiced-performance_index"><strong>Sample Question Papers Practiced ~ Performance_Index</strong></h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>Sample_Question_Papers_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(Performance_Index <span class="sc">~</span> Sample_Question_Papers_Practiced, <span class="at">data =</span> Mydata) </span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Sample_Question_Papers_lm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = Performance_Index ~ Sample_Question_Papers_Practiced, 
+    data = Mydata)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-46.505 -15.056  -0.056  15.234  44.814 
+
+Coefficients:
+                                 Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)                      53.89602    0.36194  148.91  &lt; 2e-16 ***
+Sample_Question_Papers_Practiced  0.28992    0.06695    4.33  1.5e-05 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 19.2 on 9998 degrees of freedom
+Multiple R-squared:  0.001872,  Adjusted R-squared:  0.001772 
+F-statistic: 18.75 on 1 and 9998 DF,  p-value: 1.503e-05</code></pre>
+</div>
+</div>
+<section id="estimates-2" class="level6">
+<h6 class="anchored" data-anchor-id="estimates-2">Estimates:</h6>
+<p>For each additional sample exam taken, the student’s performance index increased by <strong>0.28</strong> on average. This result was statistically significant.</p>
+</section>
+<section id="coefficient-of-determination-2" class="level6">
+<h6 class="anchored" data-anchor-id="coefficient-of-determination-2">Coefficient of determination:</h6>
+<p>The model explains only 0.18% of the variability in the Performance_Index based on the number of practice exams taken.</p>
+</section>
+</section>
+<section id="sleep-hours-performance_index" class="level3">
+<h3 class="anchored" data-anchor-id="sleep-hours-performance_index"><strong>Sleep Hours ~ Performance_Index</strong></h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>SleepHours_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(Performance_Index <span class="sc">~</span> Sleep_Hours, <span class="at">data =</span> Mydata) </span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(SleepHours_lm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = Performance_Index ~ Sleep_Hours, data = Mydata)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-45.571 -15.026  -0.026  15.429  46.154 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  51.6657     0.7636  67.662  &lt; 2e-16 ***
+Sleep_Hours   0.5450     0.1132   4.816 1.49e-06 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 19.19 on 9998 degrees of freedom
+Multiple R-squared:  0.002314,  Adjusted R-squared:  0.002214 
+F-statistic: 23.19 on 1 and 9998 DF,  p-value: 1.489e-06</code></pre>
+</div>
+</div>
+<section id="estimates-3" class="level6">
+<h6 class="anchored" data-anchor-id="estimates-3">Estimates:</h6>
+<p>For each additional hour of sleep, the student’s performance index increased by <strong>0.54</strong> on average. This result was statistically significant.</p>
+</section>
+<section id="coefficient-of-determination-3" class="level6">
+<h6 class="anchored" data-anchor-id="coefficient-of-determination-3">Coefficient of determination:</h6>
+<p>The model explains only 0.23% of the variability in the Performance_Index from the hours of sleep.</p>
+</section>
+</section>
+</section>
+<section id="b.-multiple-regression" class="level2">
+<h2 class="anchored" data-anchor-id="b.-multiple-regression">B. Multiple regression</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>Performance_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(Performance_Index <span class="sc">~</span> Hours_Studied <span class="sc">+</span> Previous_Scores <span class="sc">+</span> Sample_Question_Papers_Practiced <span class="sc">+</span> Sleep_Hours, <span class="at">data =</span> Mydata) </span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Performance_lm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = Performance_Index ~ Hours_Studied + Previous_Scores + 
+    Sample_Question_Papers_Practiced + Sleep_Hours, data = Mydata)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-8.3299 -1.3831 -0.0062  1.3701  8.4864 
+
+Coefficients:
+                                   Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)                      -33.763726   0.126841 -266.19   &lt;2e-16 ***
+Hours_Studied                      2.853429   0.007962  358.40   &lt;2e-16 ***
+Previous_Scores                    1.018584   0.001189  857.02   &lt;2e-16 ***
+Sample_Question_Papers_Practiced   0.195198   0.007189   27.15   &lt;2e-16 ***
+Sleep_Hours                        0.476333   0.012153   39.19   &lt;2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 2.061 on 9995 degrees of freedom
+Multiple R-squared:  0.9885,    Adjusted R-squared:  0.9885 
+F-statistic: 2.147e+05 on 4 and 9995 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<section id="b1.-interpretation" class="level3">
+<h3 class="anchored" data-anchor-id="b1.-interpretation">B1. Interpretation</h3>
+<section id="estimates-4" class="level6">
+<h6 class="anchored" data-anchor-id="estimates-4">Estimates:</h6>
+<p>For each additional hour of study, the student’s performance index increased by 2.85 on average. This result was statistically significant.</p>
+<p>For each additional point earned on past exams, the student’s performance index increased by one point on average. This result was statistically significant.</p>
+<p>For each additional sample exam taken, the student’s performance index increased by 0.19 on average. This result was statistically significant.</p>
+<p>For each additional hour of sleep, the student’s performance index increased by 0.47 on average. This result was statistically significant.</p>
+</section>
+<section id="coefficient-of-determination-4" class="level6">
+<h6 class="anchored" data-anchor-id="coefficient-of-determination-4">Coefficient of determination:</h6>
+<p>The model explains approximately 98.85% of the variability in the Performance_Index using the variables hours studied, previous scores, sample question papers practiced, and sleep hours. This means that, together, these four variables offer an extremely accurate prediction of academic performance, much stronger than when analyzed separately.</p>
+</section>
+</section>
+</section>
+<section id="c.-regression-model-assumtions" class="level2">
+<h2 class="anchored" data-anchor-id="c.-regression-model-assumtions">c.&nbsp;Regression Model Assumtions</h2>
+<section id="c1.-lineality-between-dependent-variables-and-independent-variables" class="level3">
+<h3 class="anchored" data-anchor-id="c1.-lineality-between-dependent-variables-and-independent-variables">c1. Lineality between dependent variables and independent variables</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggscatter</span>(<span class="at">x=</span><span class="st">"Hours_Studied"</span>, <span class="at">y=</span><span class="st">"Performance_Index"</span>, <span class="at">data =</span> Mydata, <span class="at">add=</span><span class="st">"reg.line"</span>, <span class="at">add.params =</span> <span class="fu">list</span>(<span class="at">color=</span><span class="st">"red"</span>, <span class="at">fill=</span><span class="st">"gray70"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="jackeline_regression_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggscatter</span>(<span class="at">x=</span><span class="st">"Previous_Scores"</span>, <span class="at">y=</span><span class="st">"Performance_Index"</span>, <span class="at">data =</span> Mydata, <span class="at">add=</span><span class="st">"reg.line"</span>, <span class="at">add.params =</span> <span class="fu">list</span>(<span class="at">color=</span><span class="st">"red"</span>, <span class="at">fill=</span><span class="st">"gray70"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="jackeline_regression_files/figure-html/unnamed-chunk-8-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggscatter</span>(<span class="at">x=</span><span class="st">"Sample_Question_Papers_Practiced"</span>, <span class="at">y=</span><span class="st">"Performance_Index"</span>, <span class="at">data =</span> Mydata, <span class="at">add=</span><span class="st">"reg.line"</span>, <span class="at">add.params =</span> <span class="fu">list</span>(<span class="at">color=</span><span class="st">"red"</span>, <span class="at">fill=</span><span class="st">"gray70"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="jackeline_regression_files/figure-html/unnamed-chunk-8-3.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggscatter</span>(<span class="at">x=</span><span class="st">"Sleep_Hours"</span>, <span class="at">y=</span><span class="st">"Performance_Index"</span>, <span class="at">data =</span> Mydata, <span class="at">add=</span><span class="st">"reg.line"</span>, <span class="at">add.params =</span> <span class="fu">list</span>(<span class="at">color=</span><span class="st">"red"</span>, <span class="at">fill=</span><span class="st">"gray70"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="jackeline_regression_files/figure-html/unnamed-chunk-8-4.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="c2.-independence-of-observations" class="level3">
+<h3 class="anchored" data-anchor-id="c2.-independence-of-observations">c2. Independence of observations</h3>
+<p>The observation from our model are independent.</p>
+<p>This was fulfilled when each observation was made by one participant.</p>
+</section>
+<section id="b3.-homocedasticity" class="level3">
+<h3 class="anchored" data-anchor-id="b3.-homocedasticity">B3. Homocedasticity</h3>
+<p>The errors from our model have equal variance.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Performance_lm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="jackeline_regression_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="c4.-normality-of-errors" class="level3">
+<h3 class="anchored" data-anchor-id="c4.-normality-of-errors">c4. Normality of Errors</h3>
+<p>The errors from our model are normally distributed.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Performance_lm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="jackeline_regression_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="c5.-multicollinality-evaluate-if-the-ivs-are-redundant." class="level3">
+<h3 class="anchored" data-anchor-id="c5.-multicollinality-evaluate-if-the-ivs-are-redundant.">c5. Multicollinality: evaluate if the IVs are redundant.</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">vif</span>(Performance_lm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                   Hours_Studied                  Previous_Scores 
+                        1.000464                         1.000254 
+Sample_Question_Papers_Practiced                      Sleep_Hours 
+                        1.000386                         1.000052 </code></pre>
+</div>
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
